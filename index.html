@@ -933,7 +933,34 @@
           color: #aaffdd;
         }
 
+        .animated-heart {
+          color: green;
+          animation: heartbeat 1.4s ease-in-out infinite;
+          display: inline-block;
+          transform-origin: center;
+          text-shadow: 0px 0px 20px var(--neon-blue);
+        }
 
+        @keyframes heartbeat {
+          0% {
+            transform: scale(1);
+          }
+          14% {
+            transform: scale(1.3);
+          }
+          28% {
+            transform: scale(1);
+          }
+          42% {
+            transform: scale(1.3);
+          }
+          70% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }        
     </style>
 </head>
 
@@ -1265,9 +1292,13 @@
         </div>
     </section>
     <footer class="fade-in">
-        <div class="container">
-            <p>Designed with <i class="bi bi-heart-fill" style="color: green; text-shadow: 0 0 40px white;"></i> by Arnab Singha.</p>
-            &copy; 2025. All Rights Reserved.</p>
+        <div class="container" style="font-size: 17px;">
+            <p>
+                Designed with
+                <i class="bi bi-heart-fill animated-heart"></i>
+                by Arnab Singha.
+            </p>
+            <p>&copy; 2025. All Rights Reserved.</p>
         </div>
     </footer>
     <!-- Project Modals -->
