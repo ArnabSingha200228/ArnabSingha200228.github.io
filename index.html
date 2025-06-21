@@ -619,16 +619,6 @@
             z-index: 1;
         }
         
-        /* Footer */
-        footer {
-            background: rgba(10, 25, 39, 0.8);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
-            padding: 2rem 0;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-        
         /* Animations */
         .fade-in {
             opacity: 0;
@@ -1026,7 +1016,51 @@
         .certificate-card p {
           color: var(--text-secondary);            
           margin: 10px 0 20px;
-        }     
+        } 
+
+        /* Footer */
+        .custom-footer {
+          background: rgba(10, 25, 39, 0.8);
+          backdrop-filter: blur(20px);
+          border-top: 1px solid var(--glass-border);
+          padding: 1rem 0;
+          text-align: center;
+          color: var(--text-primary);
+          font-family: 'Inter', sans-serif;
+        }
+
+        .footer-container {
+          font-size: 16px;
+          line-height: 1.8;
+        }
+
+        .footer-title {
+          margin: 0;
+          letter-spacing: 0.8px;
+          font-weight: 500;
+        }
+
+        .footer-symbol {
+            color: var(--neon-blue);
+        }
+
+        .footer-slogan {
+          opacity: 0.9;
+        }
+
+        .footer-name {
+          font-weight: 600;
+          color: #ffffff;
+        }
+
+        .footer-meta {
+          margin-top: 8px;
+          margin-bottom: 1px;
+          font-size: 14px;
+          color: #8a8a8a;
+          font-style: italic;
+        }
+    
     </style>
 </head>
 
@@ -1386,14 +1420,19 @@
             </div>
         </div>
     </section>
-    <footer class="fade-in">
-        <div class="container" style="font-size: 17px;">
-            <p>
-                Designed with
-                <i class="bi bi-heart-fill animated-heart"></i>
-                by Arnab Singha.
+    <!-- footer section -->
+    <footer class="custom-footer">
+        <div class="footer-container">
+            <p class="footer-title">
+                <span class="footer-symbol">//</span>
+                <span class="footer-slogan">Handcrafted in silence</span>
+                —
+                <span class="footer-name">Arnab Singha</span>
+                <span class="footer-symbol">//</span>
             </p>
-            <p>&copy; 2025. All Rights Reserved.</p>
+            <p class="footer-meta">
+                &copy; 2025 &nbsp;|&nbsp; All signals stable · System running clean.
+            </p>
         </div>
     </footer>
     <!-- Project Modals -->
