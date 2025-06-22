@@ -345,18 +345,35 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: var(--accent-gradient);
-            transform: scaleY(0);
+            background: var(--neon-blue);
+            box-shadow: 0 10px 50px var(--neon-green);
+            transform: scaleX(0);
             transition: transform 0.3s ease;
         }
         
         .skill-item:hover::before {
-            transform: scaleY(1);
+            transform: scaleX(1);
         }
         
+        .skill-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--neon-blue);
+            box-shadow: 0 10px 50px var(--neon-green);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-item:hover::after {
+            transform: scaleX(1);
+        }
+
         .skill-item:hover {
-            transform: translateX(10px);
-            border-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
         }
         
         .skill-item h5 {
