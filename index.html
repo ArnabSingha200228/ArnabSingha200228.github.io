@@ -1706,7 +1706,7 @@
                 action: () => {
                     const link = document.createElement('a');
                     link.href = 'resource/resume.pdf';
-                    link.download = true;
+                    link.download = 'resume.pdf';
                     link.target = '_blank'
                     document.body.appendChild(link);
                     link.click();
