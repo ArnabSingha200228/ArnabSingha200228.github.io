@@ -1070,7 +1070,53 @@
             font-size: 13px;
           }
         }
-    
+        
+        /* Glassy glazing effect */
+        .glassy-menu {
+            position: fixed;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 8px 0;
+            box-shadow: 0 8px 32px rgba(0, 255, 128, 0.25);
+            min-width: 220px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Glazing animation */
+        .glassy-menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: glazeMove 3s 2.0s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes glazeMove {
+            0% {
+                transform: translateX(-200%);
+            }
+
+            100% {
+                transform: translateX(500%);
+            }
+        }
+
+        /* Ensure menu items are above the glaze */
+        .glassy-menu>div {
+            position: relative;
+            z-index: 2;
+        }
+        
     </style>
 </head>
 
@@ -1637,13 +1683,99 @@
         }
     }
 
-    // Initialize when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener("DOMContentLoaded", () => {
+
         setTimeout(() => {
             createMatrixRain();
             initFadeInAnimations();
             initTerminalTyping();
         }, 500);
+
+        const menu = document.createElement("div");
+        menu.id = "customContextMenu";
+        menu.className = "glassy-menu";
+        menu.style.display = "none";
+
+        const menuItems = [
+            { icon: "fa-arrow-left", label: "Back", action: () => history.back() },
+            { icon: "fa-arrow-right", label: "Forward", action: () => history.forward() },
+            { icon: "fa-envelope", label: "Send Email", action: () => window.location.href = "mailto:arnabsingha200228@gmail.com" },
+            {
+                icon: "fa-file-arrow-down",
+                label: "Download Resume",
+                action: () => {
+                    const link = document.createElement('a');
+                    link.href = 'resource/resume.pdf';
+                    link.download = true;
+                    link.target = '_blank'
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            },
+            { icon: "fa-arrow-up", label: "Scroll to Top", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+            { icon: "fa-rotate-right", label: "Reload", action: () => location.reload() },
+            {
+                icon: "fa-qrcode",
+                label: "Create QR Code",
+                action: () => {
+                    const url = location.href;
+                    window.open(`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=150x150`, "_blank");
+                }
+            },
+        ];
+
+        menuItems.forEach(({ icon, label, action }) => {
+            const item = document.createElement("div");
+            item.innerHTML = `<i class="fas ${icon}" style="color: #00ff88; width: 25px;"></i> ${label}`;
+            item.style.cssText = `
+              padding: 10px 15px;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              font-size: 15px;
+              transition: background 0.2s;
+            `;
+            item.addEventListener("click", () => {
+                menu.style.display = "none";
+                action();
+            });
+            item.addEventListener("mouseover", () => item.style.background = "rgba(255, 255, 255, 0.1)");
+            item.addEventListener("mouseout", () => item.style.background = "transparent");
+            menu.appendChild(item);
+        });
+
+        document.body.appendChild(menu);
+
+        window.addEventListener("contextmenu", e => {
+            e.preventDefault();
+            menu.style.display = "block";
+            menu.style.left = "-9999px";
+            menu.style.top = "-9999px";
+
+            const menuWidth = menu.offsetWidth;
+            const menuHeight = menu.offsetHeight;
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+
+            let left = e.clientX;
+            let top = e.clientY;
+
+            if (left + menuWidth > vw) {
+                left = vw - menuWidth - 10;
+            }
+            if (top + menuHeight > vh) {
+                top = vh - menuHeight - 10;
+            }
+
+            menu.style.left = `${Math.max(0, left)}px`;
+            menu.style.top = `${Math.max(0, top)}px`;
+        });
+
+        window.addEventListener("click", () => {
+            menu.style.display = "none";
+        });
     });
     </script>
 </body>
